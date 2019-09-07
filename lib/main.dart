@@ -1,5 +1,9 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_sample/views/widgets/custom_dialog.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,11 +30,32 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Dio dio = new Dio();
+  CustomDialog dialog = new CustomDialog();
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
+  String _email = '';
+  String _password = '';
 
   @override
   Widget build(BuildContext context) {
+    fetchAuth() async {
+      try {
+        final response =
+            await dio.post('http://0.0.0.0:3000/auth/sign_in',
+                data: { 'email': _email, 'password': _password });
 
+        // TODO: move to dashboard
+        dialog.show(context, 'successed');
+        return json.decode(response.data);
+      } on DioError catch(e) {
+        dialog.show(context, 'failed');
+        throw Exception('Failed to load post');
+      }
+    }
+
+    void login() {
+      fetchAuth();
+    }
     final emailField = TextField(
       obscureText: false,
       style: style,
@@ -39,6 +64,11 @@ class _MyHomePageState extends State<MyHomePage> {
           hintText: "Email",
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (value) {
+        setState(() {
+          _email = value;
+        });
+      },
     );
     final passwordField = TextField(
       obscureText: true,
@@ -48,6 +78,11 @@ class _MyHomePageState extends State<MyHomePage> {
           hintText: "Password",
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (value) {
+        setState(() {
+          _password = value;
+        });
+      },
     );
     final loginButon = Material(
       elevation: 5.0,
@@ -56,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {},
+        onPressed: () { login(); },
         child: Text("Login",
             textAlign: TextAlign.center,
             style: style.copyWith(
