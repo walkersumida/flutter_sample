@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_sample/plugins/dio.dart';
 import 'package:flutter_sample/views/launch/index.dart';
 
 void main() => runApp(_MyApp());

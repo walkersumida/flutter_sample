@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_sample/plugins/dio.dart';
 import 'package:flutter_sample/views/widgets/custom_dialog.dart';
 
 class ViewLaunchIndex extends StatefulWidget {
@@ -15,7 +16,6 @@ class ViewLaunchIndex extends StatefulWidget {
 }
 
 class _ViewLaunchIndexState extends State<ViewLaunchIndex> {
-  Dio dio = new Dio();
   CustomDialog dialog = new CustomDialog();
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   String _email = '';
@@ -26,7 +26,7 @@ class _ViewLaunchIndexState extends State<ViewLaunchIndex> {
     fetchAuth() async {
       try {
         final response =
-            await dio.post('http://0.0.0.0:3000/auth/sign_in',
+            await dio.post('/auth/sign_in',
                 data: { 'email': _email, 'password': _password });
 
         // TODO: move to dashboard
