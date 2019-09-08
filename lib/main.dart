@@ -15,21 +15,21 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
         ),
-        home: MyHomePage(title: 'Flutter Sample Login Page'),
+        home: ViewLaunchIndex(title: 'Flutter Sample Login Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class ViewLaunchIndex extends StatefulWidget {
+  ViewLaunchIndex({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _ViewLaunchIndexState createState() => _ViewLaunchIndexState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _ViewLaunchIndexState extends State<ViewLaunchIndex> {
   Dio dio = new Dio();
   CustomDialog dialog = new CustomDialog();
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
