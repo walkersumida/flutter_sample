@@ -29,9 +29,7 @@ class _ViewLaunchIndexState extends State<ViewLaunchIndex> {
             await dio.post('/auth/sign_in',
                 data: { 'email': _email, 'password': _password });
 
-        // TODO: move to dashboard
-        dialog.show(context, 'successed');
-        return json.decode(response.data);
+        Navigator.pushNamed(context, '/dashboard');
       } on DioError catch(e) {
         dialog.show(context, 'failed');
         throw Exception('Failed to load post');
