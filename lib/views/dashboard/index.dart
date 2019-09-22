@@ -22,7 +22,7 @@ class _ViewDashboardIndexState extends State<ViewDashboardIndex> {
 
   @override
   Widget build(BuildContext context) {
-    fetchSignOut(context) async {
+    _fetchSignOut(context) async {
       try {
         final response =
             await dio.delete('/auth/sign_out');
@@ -67,7 +67,7 @@ class _ViewDashboardIndexState extends State<ViewDashboardIndex> {
                       title: Text('Sign Out'),
                       onTap: () {
                         Navigator.pop(context);
-                        fetchSignOut(context);
+                        _fetchSignOut(context);
                       },
                   ),
                 ]
