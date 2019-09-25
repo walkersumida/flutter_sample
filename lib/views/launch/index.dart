@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_sample/plugins/dio.dart';
+import 'package:flutter_sample/config/dio.dart';
 import 'package:flutter_sample/views/widgets/custom_dialog.dart';
 
 class ViewLaunchIndex extends StatefulWidget {
