@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_sample/config/dio.dart';
 
-class AuthService {
+class AuthProvider {
   static Future<Response<dynamic>> signIn(String email, String password) {
     return dio.post(
         '/auth/sign_in',

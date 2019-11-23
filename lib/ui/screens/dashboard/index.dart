@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_sample/config/dio.dart';
-import 'package:flutter_sample/services/auth_service.dart';
+import 'package:flutter_sample/resources/providers/auth_provider.dart';
 import 'package:flutter_sample/ui/widgets/custom_dialog.dart';
 import 'package:flutter_sample/ui/screens/launch/index.dart';
 
@@ -25,7 +25,7 @@ class _ViewDashboardIndexState extends State<ViewDashboardIndex> {
   Widget build(BuildContext context) {
     _fetchSignOut(context) async {
       try {
-        final response = await AuthService.signOut();
+        final response = await AuthProvider.signOut();
         Navigator.pushAndRemoveUntil(
             context,
             new MaterialPageRoute(
