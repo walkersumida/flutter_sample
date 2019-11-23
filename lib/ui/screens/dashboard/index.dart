@@ -23,9 +23,10 @@ class _ViewDashboardIndexState extends State<ViewDashboardIndex> {
 
   @override
   Widget build(BuildContext context) {
-    _fetchSignOut(context) async {
+    _fetchSignOut(context) {
       try {
-        final response = await AuthProvider.signOut();
+        AuthProvider _authProvider = AuthProvider();
+        final response = _authProvider.signOut();
         Navigator.pushAndRemoveUntil(
             context,
             new MaterialPageRoute(

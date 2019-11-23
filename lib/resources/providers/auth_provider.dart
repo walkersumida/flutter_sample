@@ -1,14 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_sample/config/dio.dart';
+import 'package:flutter_sample/models/user.dart';
 
 class AuthProvider {
-  static Future<Response<dynamic>> signIn(String email, String password) {
-    return dio.post(
+  Future<User> signIn(String email, String password) async {
+    Response response = await dio.post(
         '/auth/sign_in',
         data: { 'email': email, 'password': password });
+    return User.fromJson(response.data);
   }
 
-  static Future<Response<dynamic>> signOut() {
-    return dio.delete('/auth/sign_out');
+  Future<Response<dynamic>> signOut() async {
+    return await dio.delete('/auth/sign_out');
   }
 }

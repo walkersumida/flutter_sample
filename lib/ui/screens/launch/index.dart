@@ -24,10 +24,11 @@ class _ViewLaunchIndexState extends State<ViewLaunchIndex> {
 
   @override
   Widget build(BuildContext context) {
-    fetchAuth() async {
+    fetchAuth() {
       try {
+        AuthProvider _authProvider = AuthProvider();
         final response =
-            await AuthProvider.signIn(_email, _password);
+            _authProvider.signIn(_email, _password);
 
         Navigator.pushNamed(context, '/dashboard');
       } on DioError catch(e) {
