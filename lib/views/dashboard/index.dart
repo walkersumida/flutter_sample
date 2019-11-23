@@ -35,6 +35,15 @@ class _ViewDashboardIndexState extends State<ViewDashboardIndex> {
         print(e);
       }
     }
+    var listItem = [1, 2, 3];
+
+    Future<void> _refresh() async {
+      await Future.delayed(Duration(seconds: 2));
+
+      setState(() {
+        listItem = listItem.map((item) => item + 1).toList();
+      });
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -49,10 +58,18 @@ class _ViewDashboardIndexState extends State<ViewDashboardIndex> {
                 },
             ),
         ),
-        body: Center(
-            child: Container(
-                color: Colors.white,
-            )),
+        body: RefreshIndicator(
+            child: ListView.builder(
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                      child: Padding(
+                          child: Text(listItem[index].toString(), style: TextStyle(fontSize: 22.0),),
+                          padding: EdgeInsets.all(20.0),),
+                  );},
+                  itemCount: listItem.length,
+            ),
+            onRefresh: _refresh,
+        ),
         drawer: Drawer(
             child: ListView(
                 padding: EdgeInsets.zero,
