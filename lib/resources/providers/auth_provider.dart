@@ -1,17 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_sample/config/dio.dart';
-import 'package:flutter_sample/models/user.dart';
+import 'package:flutter_sample/models/user_response.dart';
 
 class AuthProvider {
-  Future<User> signIn(String email, String password) async {
+  Future<UserResponse> signIn(String email, String password) async {
     try {
       Response response = await dio.post(
           '/auth/sign_in',
           data: { 'email': email, 'password': password });
-      return User.fromJson(response.data);
+      return UserResponse.fromJson(response.data);
     } on DioError catch(error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
-      return User.withError(_handleError(error));
+      return UserResponse.withError(_handleError(error));
     }
   }
 
