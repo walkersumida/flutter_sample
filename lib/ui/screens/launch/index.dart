@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_sample/config/dio.dart';
-import 'package:flutter_sample/resources/providers/auth_provider.dart';
+import 'package:flutter_sample/resources/repositories/auth_repository.dart';
 import 'package:flutter_sample/ui/widgets/custom_dialog.dart';
 
 class ViewLaunchIndex extends StatefulWidget {
@@ -26,9 +26,9 @@ class _ViewLaunchIndexState extends State<ViewLaunchIndex> {
   Widget build(BuildContext context) {
     fetchAuth() {
       try {
-        AuthProvider _authProvider = AuthProvider();
+        AuthRepository _authRepository = AuthRepository();
         final response =
-            _authProvider.signIn(_email, _password);
+            _authRepository.signIn(_email, _password);
 
         Navigator.pushNamed(context, '/dashboard');
       } on DioError catch(e) {
