@@ -24,16 +24,14 @@ class _ViewLaunchIndexState extends State<ViewLaunchIndex> {
 
   @override
   Widget build(BuildContext context) {
-    fetchAuth() {
-      try {
-        AuthRepository _authRepository = AuthRepository();
-        final response =
-            _authRepository.signIn(_email, _password);
-
-        Navigator.pushNamed(context, '/dashboard');
-      } on DioError catch(e) {
+    fetchAuth() async {
+      AuthRepository _authRepository = AuthRepository();
+      final response =
+          await _authRepository.signIn(_email, _password);
+      if (response.error != '') {
         dialog.show(context, 'failed');
-        throw Exception('Failed to load post');
+      } else {
+        Navigator.pushNamed(context, '/dashboard');
       }
     }
 
