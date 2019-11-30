@@ -2,9 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter_sample/config/dio.dart';
-import 'package:flutter_sample/resources/repositories/auth_repository.dart';
+import 'package:flutter_sample/blocs/auth_bloc.dart';
 import 'package:flutter_sample/ui/widgets/custom_dialog.dart';
 
 class ViewLaunchIndex extends StatefulWidget {
@@ -24,20 +22,16 @@ class _ViewLaunchIndexState extends State<ViewLaunchIndex> {
 
   @override
   Widget build(BuildContext context) {
-    fetchAuth() async {
-      AuthRepository _authRepository = AuthRepository();
-      final response =
-          await _authRepository.signIn(_email, _password);
-      if (response.error != '') {
+    void login(String email, String password) async {
+      AuthBloc _authBloc = AuthBloc();
+      final user = await _authBloc.login(email, password);
+      if (user.error != '') {
         dialog.show(context, 'failed');
       } else {
         Navigator.pushNamed(context, '/dashboard');
       }
     }
 
-    void login() {
-      fetchAuth();
-    }
     final emailField = TextField(
         obscureText: false,
         style: style,
@@ -73,7 +67,7 @@ class _ViewLaunchIndexState extends State<ViewLaunchIndex> {
         child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            onPressed: () { login(); },
+            onPressed: () { login(this._email, this._password); },
             child: Text("Login",
                 textAlign: TextAlign.center,
                 style: style.copyWith(
