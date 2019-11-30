@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_sample/config/dio.dart';
 import 'package:flutter_sample/config/router.dart';
-import 'package:flutter_sample/views/launch/index.dart';
+import 'package:flutter_sample/ui/screens/launch/index.dart';
 
 void main() {
   addDioInterceptors();
