@@ -7,6 +7,9 @@ import 'package:flutter_sample/config/dio.dart';
 import 'package:flutter_sample/resources/repositories/auth_repository.dart';
 import 'package:flutter_sample/ui/widgets/custom_dialog.dart';
 import 'package:flutter_sample/ui/screens/launch/index.dart';
+import 'package:flutter_sample/blocs/auth_bloc.dart';
+import 'package:flutter_sample/models/user.dart';
+import 'package:flutter_sample/models/user_response.dart';
 
 class ViewDashboardIndex extends StatefulWidget {
   ViewDashboardIndex({Key key, this.title}) : super(key: key);
@@ -18,6 +21,7 @@ class ViewDashboardIndex extends StatefulWidget {
 }
 
 class _ViewDashboardIndexState extends State<ViewDashboardIndex> {
+  AuthBloc _authBloc = AuthBloc();
   CustomDialog dialog = new CustomDialog();
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
@@ -58,12 +62,20 @@ class _ViewDashboardIndexState extends State<ViewDashboardIndex> {
             child: ListView(
                 padding: EdgeInsets.zero,
                 children: <Widget>[
-                  DrawerHeader(
-                      child: Text('Drawer Header'),
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                      ),
-                  ),
+                  new StreamBuilder(
+                      stream: _authBloc.getUser,
+                      builder: (context, AsyncSnapshot<UserResponse> snapshot){
+                        // HACK: snapshot.data becomes null when open sidebar
+                        if (snapshot.data == null) {
+                          return DrawerHeader();
+                        }
+                        return new DrawerHeader(
+                            child: Text(snapshot.data.data.name),
+                            decoration: BoxDecoration(
+                                color: Colors.blue,
+                            ),
+                        );
+                      }),
                   ListTile(
                       title: Text('Sign Out'),
                       onTap: () {
