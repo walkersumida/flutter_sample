@@ -15,6 +15,7 @@ class ViewLaunchIndex extends StatefulWidget {
 }
 
 class _ViewLaunchIndexState extends State<ViewLaunchIndex> {
+  AuthBloc _authBloc = AuthBloc();
   CustomDialog dialog = new CustomDialog();
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   String _email = '';
@@ -23,13 +24,14 @@ class _ViewLaunchIndexState extends State<ViewLaunchIndex> {
   @override
   Widget build(BuildContext context) {
     void login(String email, String password) async {
-      AuthBloc _authBloc = AuthBloc();
-      final user = await _authBloc.login(email, password);
-      if (user.error != '') {
-        dialog.show(context, 'failed');
-      } else {
-        Navigator.pushNamed(context, '/dashboard');
-      }
+      await _authBloc.create(email, password);
+      _authBloc.getUser.listen((user){
+        if (user.error != '') {
+          dialog.show(context, 'failed');
+        } else {
+          Navigator.pushNamed(context, '/dashboard');
+        }
+      });
     }
 
     final emailField = TextField(
@@ -100,6 +102,12 @@ class _ViewLaunchIndexState extends State<ViewLaunchIndex> {
                           loginButon,
                           SizedBox(height: 15.0),
                         ])))));
+  }
+
+  @override
+  void dispose() {
+    _authBloc.dispose();
+    super.dispose();
   }
 }
 
