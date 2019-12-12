@@ -5,8 +5,6 @@ import 'package:flutter_sample/config/router.dart';
 import 'package:flutter_sample/ui/screens/launch/index.dart';
 
 void main() {
-  addDioInterceptors();
-
   runApp(_MyApp());
 }
 
