@@ -26,28 +26,28 @@ class _ViewDashboardIndexState extends State<ViewDashboardIndex> {
   CustomDialog dialog = new CustomDialog();
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
+  _fetchSignOut(context) {
+    try {
+      AuthRepository _authRepository = AuthRepository();
+      _authRepository.signOut();
+      Navigator.pushAndRemoveUntil(
+          context,
+          new MaterialPageRoute(
+              builder: (context) => new ViewLaunchIndex()),
+          (_) => false);
+    } on DioError catch(e) {
+      print(e);
+    }
+  }
+
+  Future<void> _refresh() async {
+    await Future.delayed(Duration(seconds: 2));
+
+    _postBloc.index();
+  }
+
   @override
   Widget build(BuildContext context) {
-    _fetchSignOut(context) {
-      try {
-        AuthRepository _authRepository = AuthRepository();
-        final response = _authRepository.signOut();
-        Navigator.pushAndRemoveUntil(
-            context,
-            new MaterialPageRoute(
-                builder: (context) => new ViewLaunchIndex()),
-            (_) => false);
-      } on DioError catch(e) {
-        print(e);
-      }
-    }
-
-    Future<void> _refresh() async {
-      await Future.delayed(Duration(seconds: 2));
-
-      _postBloc.index();
-    }
-
     _postBloc.index();
 
     return Scaffold(
