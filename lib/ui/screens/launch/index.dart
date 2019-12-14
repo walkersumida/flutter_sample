@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_sample/blocs/auth_bloc.dart';
 import 'package:flutter_sample/ui/widgets/custom_dialog.dart';
@@ -21,19 +18,19 @@ class _ViewLaunchIndexState extends State<ViewLaunchIndex> {
   String _email = '';
   String _password = '';
 
+  void login(String email, String password) async {
+    await _authBloc.create(email, password);
+    _authBloc.getUser.listen((user){
+      if (user.error != '') {
+        dialog.show(context, 'failed');
+      } else {
+        Navigator.pushNamed(context, '/dashboard');
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    void login(String email, String password) async {
-      await _authBloc.create(email, password);
-      _authBloc.getUser.listen((user){
-        if (user.error != '') {
-          dialog.show(context, 'failed');
-        } else {
-          Navigator.pushNamed(context, '/dashboard');
-        }
-      });
-    }
-
     final emailField = TextField(
         obscureText: false,
         style: style,
@@ -110,4 +107,3 @@ class _ViewLaunchIndexState extends State<ViewLaunchIndex> {
     super.dispose();
   }
 }
-
