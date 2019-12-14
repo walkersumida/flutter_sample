@@ -11,6 +11,9 @@ class HandleError {
         case DioErrorType.CONNECT_TIMEOUT:
           errorDescription = "Connection timeout with API server";
           break;
+        case DioErrorType.SEND_TIMEOUT:
+          errorDescription = "Send timeout";
+          break;
         case DioErrorType.DEFAULT:
           errorDescription =
               "Connection to API server failed due to internet connection";
