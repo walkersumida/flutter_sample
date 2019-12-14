@@ -21,7 +21,6 @@ class AuthBloc {
     _controller.sink.add(_user);
   }
 
-  @override
   void dispose() {
     _controller.close();
   }

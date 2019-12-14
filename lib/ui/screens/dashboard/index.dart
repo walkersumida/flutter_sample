@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -91,7 +90,7 @@ class _ViewDashboardIndexState extends State<ViewDashboardIndex> {
                       builder: (context, AsyncSnapshot<UserResponse> snapshot){
                         // HACK: snapshot.data becomes null when open sidebar
                         if (snapshot.data == null) {
-                          return DrawerHeader();
+                          return DrawerHeader(child: Text(''));
                         }
                         return new DrawerHeader(
                             child: Text(snapshot.data.data.name),
