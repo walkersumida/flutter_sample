@@ -108,6 +108,16 @@ class _ViewDashboardIndexState extends State<ViewDashboardIndex> {
                   ),
                 ]
             )
-        ));
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.pushNamed(context, '/postNew');
+          },
+          label: Text('New'),
+          icon: Icon(Icons.add),
+          elevation: 10,
+          backgroundColor: Colors.pink,
+        ),
+      );
   }
 }
